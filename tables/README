@@ -1,0 +1,30 @@
+Folders
+=======
+
+grid/ The ejecta from binary and single stars as function of initial mass
+
+iso_{binary,single}.dat
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Each file contains the initial star mass (solar masses), followed by the eject from each mass loss process (solar masses). 
+The _int represent how much (in solar masses) was from the initial composition, thus the yield is x - x_int
+
+
+winds/ The wind ejecta from binary and single 45Msun star as function of wind eta
+
+iso_{binary,single}.dat
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Each file contains the wind eta, followed by the wind ejecta
+The _int represent how much (in solar masses) was from the initial composition, thus the yield is x - x_int
+
+
+ccsn/ The CCSN ejecta from binary and single 17Msun star as a function of the explosion properties
+
+iso_{binary,single}.dat
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Each file contains the explosion properties (energy (10**51 erg/s), mass cut (msun), injection time(s), injection mass (msun))                                    
+The _int represent how much (in solar masses) was from the initial composition, thus the yield is x - x_int
+
+

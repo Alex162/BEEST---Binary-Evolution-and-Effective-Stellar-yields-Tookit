@@ -1,0 +1,50 @@
+README
+
+####
+Acknowledgement/citation:
+https://ui.adsabs.harvard.edu/abs/2025A%26A...701A.177K/abstract
+####
+
+#####
+Special package notes:
+radioactivedecay: https://radioactivedecay.github.io/
+mendeleev: https://pypi.org/project/mendeleev/
+######
+
+Table acknowledgements:
+The Farmer et al. yield tables are provided for convenience as part of this package, and have not been modified.
+
+
+####
+Path settings:
+In important_functions.py, you will need to change 'codepath' to wherever you have downloaded the code.
+####
+
+
+###################
+Basic Use:
+In an interactive python terminal:
+
+import effective_yields_calc as ef
+ef.make_table()
+###################
+
+###################
+make_table inputs:
+
+savetag: unique identifier for a table, str;
+
+savepath: path to save the table, str;
+
+h: binary fraction (0-1), float;
+
+beta_winds: mass transfer efficiency, winds (0-1), float;
+
+beta_rlof: mass transfer efficiency, RLOF (0-1), float;
+
+beta_cc: mass transfer efficiency, supernova (0-1), float;
+
+accurate_radio: control for whether decay of accreted ratioisotopes during the secondary's lifetime is modelled, bool;
+
+list_radio: List of radioisotopes to be considered when accurate_radio=True (Al-26), list of strings [str, str, str...]
+###################
