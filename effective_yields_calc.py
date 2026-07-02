@@ -18,12 +18,52 @@ import important_functions as im
 il.reload(im)
 warnings.filterwarnings("ignore")
 
+def make_all_tables():
+	h_list=[0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0]
+	beta_winds_list=[0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0]
+	beta_rlof_list=[0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0]
+	beta_cc_list=[0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0]
+	
+	for h in h_list:
+		print(h)
+		savepath='new_tables/hvar/'
+		try:
+			os.mkdir(savepath)
+		except:
+			pass
+		make_table(savetag='',savepath=savepath,h=h,beta_winds=0.1,beta_rlof=1,beta_cc=0)
+
+	for h in h_list:
+		for beta_winds in beta_winds_list:
+			savepath=f'new_tables/winds_var_h={h}/'
+			try:
+				os.mkdir(savepath)
+			except:
+				pass
+			make_table(savetag='',savepath=savepath,h=h,beta_winds=beta_winds,beta_rlof=0,beta_cc=0)
+
+		for beta_rlof in beta_rlof_list:
+			savepath=f'new_tables/rlof_var_h={h}/'
+			try:
+				os.mkdir(savepath)
+			except:
+				pass
+			make_table(savetag='',savepath=savepath,h=h,beta_winds=0,beta_rlof=beta_rlof,beta_cc=0)
+
+		for beta_cc in beta_cc_list:
+			savepath=f'new_tables/cc_var_h={h}/'
+			try:
+				os.mkdir(savepath)
+			except:
+				pass
+			make_table(savetag='',savepath=savepath,h=h,beta_winds=0,beta_rlof=0,beta_cc=beta_cc)
+
 
 def make_table(savetag='',savepath='',h=0.5,beta_winds=0.1,beta_rlof=1,beta_cc=0.00,accurate_radio=True,
 	list_radio=['Al-26','Fe-60','Mn-53','Cl-36','Ca-41','Pd-205']):
 	tinit=time.time()
-	savename_abs=f"{savepath}h={h}_betawinds={beta_winds}_betarlof={beta_rlof}_betacc={beta_cc}{savetag}_abs.txt"
-	savename_net=f"{savepath}h={h}_betawinds={beta_winds}_betarlof={beta_rlof}_betacc={beta_cc}{savetag}_net.txt"
+	savename_abs=f"{savepath}h={h}_betawinds={beta_winds}_beta_rlof={beta_rlof}_beta_cc={beta_cc}{savetag}_abs.txt"
+	savename_net=f"{savepath}h={h}_betawinds={beta_winds}_beta_rlof={beta_rlof}_beta_cc={beta_cc}{savetag}_net.txt"
 
 	isolist=im.make_iso_list_rob(im.gridpath)
 	binary_df,single_df=im.read_iso_rob('h1')
@@ -104,11 +144,11 @@ def make_table(savetag='',savepath='',h=0.5,beta_winds=0.1,beta_rlof=1,beta_cc=0
 	for massnum, Mprim in enumerate(binary_df['m_init']):
 		Mrem=Mprim-np.sum(np.array(table_list_abs)[:,massnum])
 		fabs=open(savename_abs,'a')
-		im.write_star_header(fabs,Minit=Mprim,Mfinal=Mrem,lifetime=np.array(binary_df_tab34['Age'])[massnum])
+		im.write_star_header(fabs,Minit=Mprim,Mfinal=Mrem,lifetime=np.array(binary_df_tab34['Age'])[massnum]*1e6)
 		fabs.close()#if you don't open/close it will not write part of the Hydrogen string for some reason.
 
 		fnet=open(savename_net,'a')
-		im.write_star_header(fnet,Minit=Mprim,Mfinal=Mrem,lifetime=np.array(binary_df_tab34['Age'])[massnum])
+		im.write_star_header(fnet,Minit=Mprim,Mfinal=Mrem,lifetime=np.array(binary_df_tab34['Age'])[massnum]*1e6)
 		fnet.close()#if you don't open/close it will not write part of the Hydrogen string for some reason.
 
 		fabs=open(savename_abs,'a')

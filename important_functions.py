@@ -15,15 +15,6 @@ from mendeleev import isotope
 from decimal import Decimal
 import importlib as il
 
-###REPLACE THIS WITH YOUR RELEVANT PATH TO CODE
-codepath='/Users/alexkemp/Desktop/postdoc_stuff/binary_yields_stuff/github/BEEST---Binary-Evolution-and-Effective-Stellar-yields-Tookit/'
-###
-
-gridpath=codepath+'tables/grid/'
-binary_c_singles_path=codepath
-table34_path=codepath+'tables/'
-
-
 gridpath='/Users/alexkemp/Desktop/postdoc_stuff/binary_yields_stuff/tables/grid/'
 binary_c_singles_path='/Users/alexkemp/Desktop/postdoc_stuff/binary_yields_stuff/'
 table34_path='/Users/alexkemp/Desktop/postdoc_stuff/binary_yields_stuff/tables/'
