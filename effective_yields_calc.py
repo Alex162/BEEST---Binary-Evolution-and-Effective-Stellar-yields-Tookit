@@ -24,43 +24,50 @@ def make_all_tables():
 	beta_rlof_list=[0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0]
 	beta_cc_list=[0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0]
 	
-	for h in h_list:
-		print(h)
-		savepath='new_tables/hvar/'
-		try:
-			os.mkdir(savepath)
-		except:
-			pass
-		make_table(savetag='',savepath=savepath,h=h,beta_winds=0.1,beta_rlof=1,beta_cc=0)
+	# for h in h_list:
+	# 	print(h)
+	# 	savepath='new_tables/hvar/'
+	# 	try:
+	# 		os.mkdir(savepath)
+	# 	except:
+	# 		pass
+	# 	make_table(savetag='',savepath=savepath,h=h,beta_winds=0.1,beta_rlof=1,beta_cc=0)
 
-	for h in h_list:
-		for beta_winds in beta_winds_list:
-			savepath=f'new_tables/winds_var_h={h}/'
-			try:
-				os.mkdir(savepath)
-			except:
-				pass
-			make_table(savetag='',savepath=savepath,h=h,beta_winds=beta_winds,beta_rlof=0,beta_cc=0)
+	# for h in h_list:
+	# 	for beta_winds in beta_winds_list:
+	# 		savepath=f'new_tables/winds_var_h={h}/'
+	# 		try:
+	# 			os.mkdir(savepath)
+	# 		except:
+	# 			pass
+	# 		make_table(savetag='',savepath=savepath,h=h,beta_winds=beta_winds,beta_rlof=0,beta_cc=0)
 
-		for beta_rlof in beta_rlof_list:
-			savepath=f'new_tables/rlof_var_h={h}/'
-			try:
-				os.mkdir(savepath)
-			except:
-				pass
-			make_table(savetag='',savepath=savepath,h=h,beta_winds=0,beta_rlof=beta_rlof,beta_cc=0)
+	# 	for beta_rlof in beta_rlof_list:
+	# 		savepath=f'new_tables/rlof_var_h={h}/'
+	# 		try:
+	# 			os.mkdir(savepath)
+	# 		except:
+	# 			pass
+	# 		make_table(savetag='',savepath=savepath,h=h,beta_winds=0,beta_rlof=beta_rlof,beta_cc=0)
 
-		for beta_cc in beta_cc_list:
-			savepath=f'new_tables/cc_var_h={h}/'
-			try:
-				os.mkdir(savepath)
-			except:
-				pass
-			make_table(savetag='',savepath=savepath,h=h,beta_winds=0,beta_rlof=0,beta_cc=beta_cc)
+	# 	for beta_cc in beta_cc_list:
+	# 		savepath=f'new_tables/cc_var_h={h}/'
+	# 		try:
+	# 			os.mkdir(savepath)
+	# 		except:
+	# 			pass
+	# 		make_table(savetag='',savepath=savepath,h=h,beta_winds=0,beta_rlof=0,beta_cc=beta_cc)
 
+	#primary only
+	savepath='new_tables/primary_only/'
+	try:
+		os.mkdir(savepath)
+	except:
+		pass
+	make_table(savetag='primary_only',savepath=savepath,h=1,beta_winds=0,beta_rlof=0,beta_cc=0,primary_only=True)
 
 def make_table(savetag='',savepath='',h=0.5,beta_winds=0.1,beta_rlof=1,beta_cc=0.00,accurate_radio=True,
-	list_radio=['Al-26','Fe-60','Mn-53','Cl-36','Ca-41','Pd-205']):
+	list_radio=['Al-26','Fe-60','Mn-53','Cl-36','Ca-41','Pd-205'],primary_only=False):
 	tinit=time.time()
 	savename_abs=f"{savepath}h={h}_betawinds={beta_winds}_beta_rlof={beta_rlof}_beta_cc={beta_cc}{savetag}_abs.txt"
 	savename_net=f"{savepath}h={h}_betawinds={beta_winds}_beta_rlof={beta_rlof}_beta_cc={beta_cc}{savetag}_net.txt"
@@ -100,7 +107,7 @@ def make_table(savetag='',savepath='',h=0.5,beta_winds=0.1,beta_rlof=1,beta_cc=0
 	table_list_net=[]
 	for i,iso in enumerate(isolist):
 		y_abs=im.calc_Yeff_abs(iso,h=h,dM=dM,dumping_arr_iso=dumping_arr[np.where(isolist==iso)].flatten(),
-                    beta_winds=beta_winds,beta_rlof=beta_rlof,beta_cc=beta_cc)
+                    beta_winds=beta_winds,beta_rlof=beta_rlof,beta_cc=beta_cc,primary_only=primary_only)
 		y_net=y_abs-init_mass_dict[iso]
 		table_list_abs.append(y_abs)
 		table_list_net.append(y_net)

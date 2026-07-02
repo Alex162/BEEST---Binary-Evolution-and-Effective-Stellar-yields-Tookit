@@ -515,7 +515,7 @@ def calc_individual_binary_net(iso,Mpriminit,Msecinit,beta_winds=0,beta_rlof=1,b
     
     return interp_yields_sec_net,Msec,primary_yield_net,Mpriminit
 
-def calc_Yeff_abs(iso,dumping_arr_iso=False,dM='default',h=0.5,q_avg=0.5,beta_winds=0,beta_rlof=1,beta_cc=0,gridpath=gridpath,list_radio=['Al-26','Fe-60','Mn-53','Cl-36','Ca-41','Pd-205']):
+def calc_Yeff_abs(iso,dumping_arr_iso=False,dM='default',h=0.5,q_avg=0.5,beta_winds=0,beta_rlof=1,beta_cc=0,gridpath=gridpath,list_radio=['Al-26','Fe-60','Mn-53','Cl-36','Ca-41','Pd-205'],primary_only=False):
     
     avg_yield_sec,primary_yield,dM,Msec_list,\
     interp_yields_sec,Minit_single,\
@@ -540,7 +540,8 @@ def calc_Yeff_abs(iso,dumping_arr_iso=False,dM='default',h=0.5,q_avg=0.5,beta_wi
         s_index,_=find_nearest(np.array(single_df['m_init']),minit)
         
         calculator = EquationCalculator(yields_single_arr[s_index],primary_yield_arr[i],avg_yield_sec[i],h, q_avg)
-        
+        if primary_only:
+            calculator = EquationCalculator(yields_single_arr[s_index],primary_yield_arr[i],0,1,0)
         Yeff_arr[i] = calculator.calculate()
 #         print('prim = ' + str(primary_yield_arr[i]))
 #         print('sec = ' + str(avg_yield_sec[i]))
@@ -551,7 +552,7 @@ def calc_Yeff_abs(iso,dumping_arr_iso=False,dM='default',h=0.5,q_avg=0.5,beta_wi
 
     return Yeff_arr
 
-def calc_Yeff_net(iso,dumping_arr_iso=False,dM='default',h=0.5,q_avg=0.5,beta_winds=0,beta_rlof=1,beta_cc=0,gridpath=gridpath):
+def calc_Yeff_net(iso,dumping_arr_iso=False,dM='default',h=0.5,q_avg=0.5,beta_winds=0,beta_rlof=1,beta_cc=0,gridpath=gridpath,primary_only=False):
     
     avg_yield_sec,primary_yield,dM,Msec_list,\
     interp_yields_sec,Minit_single,\
@@ -576,7 +577,8 @@ def calc_Yeff_net(iso,dumping_arr_iso=False,dM='default',h=0.5,q_avg=0.5,beta_wi
         s_index,_=find_nearest(np.array(single_df['m_init']),minit)
         
         calculator = EquationCalculator(yields_single_arr[s_index],primary_yield_arr[i],avg_yield_sec[i],h, q_avg)
-        
+        if primary_only:
+            calculator = EquationCalculator(yields_single_arr[s_index],primary_yield_arr[i],0,1,0)
         Yeff_arr[i] = calculator.calculate()
 #         print('prim = ' + str(primary_yield_arr[i]))
 #         print('sec = ' + str(avg_yield_sec[i]))
